@@ -39,20 +39,17 @@ def generate_bias_file_struct():
 
     return bias_file_struct
 
-def calc_activiation(incoming_activation , weight, bias):
-    return((incoming_activation * weight) + bias)
-
 def calc_activation_function(activation):
     e = 2.718282
-    return(1 / (1 + (1 / pow(e , activation))))
+    return (1 / (1 + (1 / pow(e , activation))))
 
 def calc_layer_activation(incoming_activation , weights , biases):
     outgoing_activation = []
     for x in range(0 , len(biases)):
         running_activation = 0
         for y in range(0 , len(incoming_activation)):
-            running_activation += calc_activiation(incoming_activation[y] , weights[x][y] , biases[x])
-        outgoing_activation.append(calc_activation_function(running_activation))
+            running_activation += (incoming_activation[y] * weights[x][y])
+        outgoing_activation.append(calc_activation_function(running_activation + biases[x]))
     return outgoing_activation
 
 def calc_network_activation(input_array , weights , biases):
@@ -62,10 +59,15 @@ def calc_network_activation(input_array , weights , biases):
         calc_layer_activation(running_activation , weights[x] , biases[x])
     return running_activation
 
-def display_certainties(certainty_value_array):
+def calc_network_error(certainty_value_array , correct_identification):
+    running_error = 0
     certainty_name_array = settings_dict["output neuron names"]
     for x in range(0 , settings_dict["number of output neurons"]):
-        print(certainty_name_array[x] , certainty_value_array[x])
+        if (certainty_name_array[x] == correct_identification):
+            running_error += pow((certainty_value_array[x] - 1) , 2)
+        else:
+            running_error += pow((certainty_value_array[x] - 0) , 2)
+    return running_error
 
 #initialize weight and bias file structure
 with open("settings.json") as settings_typehead:
@@ -95,4 +97,4 @@ with open(data_file_name) as data_file_typehead:
 
 input_array = [0.2 , 0.5]
 
-display_certainties(calc_network_activation(input_array , weights , biases))
+print(calc_network_error(calc_network_activation(input_array , weights , biases) , "square"))
