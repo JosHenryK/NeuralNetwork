@@ -1,12 +1,13 @@
 {
     "data file name": "weights_biases.json",
-    "num of input neurons": 2,
-    "num of hidden layers": 1,
-    "num of neurons per hidden layer": 3,
-    "num of output neurons": 3,
+    "number of input neurons": 2,
+    "number of hidden layers": 1,
+    "number of neurons per hidden layer": 3,
+    "number of output neurons": 3,
     "output neuron names": 
     [
     "square", 
-    "circle"
+    "circle",
+    "triangle"
     ]
 }
