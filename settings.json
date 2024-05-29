@@ -1,5 +1,6 @@
 {
     "data file name": "weights_biases.json",
+    "training file name": "",
     "number of input neurons": 2,
     "number of hidden layers": 1,
     "number of neurons per hidden layer": 3,
